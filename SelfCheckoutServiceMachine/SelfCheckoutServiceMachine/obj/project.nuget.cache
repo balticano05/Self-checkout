@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "t+UfknQ09A3lodw2Dx82UttzqbIFx+iQWqiI3tKpuM1Q0lltsAXwWxB+xQheX39NmEDGRqIFJLhzam3LlqQsLQ==",
+  "success": true,
+  "projectFilePath": "D:\\GRSU\\Self-checkout\\SelfCheckoutServiceMachine\\SelfCheckoutServiceMachine\\SelfCheckoutServiceMachine.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.0-rc.2.24473.5\\microsoft.extensions.dependencyinjection.9.0.0-rc.2.24473.5.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.0-rc.2.24473.5\\microsoft.extensions.dependencyinjection.abstractions.9.0.0-rc.2.24473.5.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\serilog\\4.1.1-dev-02318\\serilog.4.1.1-dev-02318.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\serilog.sinks.console\\6.0.0\\serilog.sinks.console.6.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\serilog.sinks.debug\\3.0.0\\serilog.sinks.debug.3.0.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\shielded\\4.4.9\\shielded.4.4.9.nupkg.sha512"
+  ],
+  "logs": []
+}

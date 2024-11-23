@@ -1,0 +1,21 @@
+Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityInStock
+1;Milk;1.07;Fresh milk;0.90;Dairy;True;10
+2;Cream 400g;2.71;Cream for cooking;2.00;Dairy;True;20
+3;Yogurt 400g;2.10;Plain yogurt;1.50;Dairy;False;7
+4;Packed potatoes 1kg;1.47;Fresh potatoes;1.00;Vegetables;False;30
+5;Packed cabbage 1kg;1.19;Fresh cabbage;0.80;Vegetables;False;15
+6;Packed tomatoes 350g;1.60;Fresh tomatoes;1.20;Vegetables;False;50
+7;Packed apples 1kg;2.78;Fresh apples;2.00;Fruits;False;18
+8;Packed oranges 1kg;3.20;Fresh oranges;2.50;Fruits;False;12
+9;Packed bananas 1kg;1.10;Fresh bananas;0.80;Fruits;False;25
+10;Packed beef fillet 1kg;12.80;Beef fillet;10.00;Meat;False;7
+11;Packed pork fillet 1kg;8.52;Pork fillet;6.50;Meat;False;14
+12;Packed chicken breasts 1kg;10.75;Chicken breasts;8.00;Meat;False;18
+13;Baguette 360g;1.30;French baguette;1.00;Bakery;True;10
+14;Drinking water 1.51;0.80;Bottled water;0.50;Beverages;False;100
+15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;16
+16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;12
+17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;50
+18;Paulaner 0.51;1.10;German beer;0.80;Alcohol;False;100
+19;Whiskey Jim Beam 1l;13.99;Bourbon whiskey;10.00;Alcohol;False;30
+20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;20
