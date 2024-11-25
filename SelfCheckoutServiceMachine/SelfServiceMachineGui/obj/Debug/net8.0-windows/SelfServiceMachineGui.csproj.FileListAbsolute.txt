@@ -19,3 +19,5 @@ D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\SelfServiceMachineGui.pdb
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\SelfServiceMachineGui.genruntimeconfig.cache
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\ref\SelfServiceMachineGui.dll
+D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\DiscountCardWindow.g.cs
+D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\DiscountCardWindow.baml

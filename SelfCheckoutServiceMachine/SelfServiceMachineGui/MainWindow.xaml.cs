@@ -32,11 +32,21 @@ public partial class MainWindow : Window
 
     private void SearchByType_Click(object sender, RoutedEventArgs e)
     {
-        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem)
+        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Content.ToString() != "Select a product type")
         {
             string type = selectedItem.Content.ToString();
             List<Product> results = _productController.searchByType(type);
             UpdateResultsListBox(results);
+        }
+        else
+        {
+            ResultsListBox.Items.Clear();
+            TextBlock notFoundText = new TextBlock
+            {
+                Text = "Not found such product",
+                Foreground = Brushes.Teal
+            };
+            ResultsListBox.Items.Add(notFoundText);
         }
     }
 
@@ -57,7 +67,7 @@ public partial class MainWindow : Window
         {
             foreach (var product in products)
             {
-                ResultsListBox.Items.Add($"{product.Name} - {product.Type}");
+                ResultsListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type} ");
             }
         }
     }
@@ -85,7 +95,7 @@ public partial class MainWindow : Window
         if (ResultsListBox.SelectedItem is string selectedProductString)
         {
             var productDetails = selectedProductString.Split(" - ");
-            string productName = productDetails[0];
+            string productName = productDetails[1];
             
             Product selectedProduct = _productController.searchByName(productName).First();
             if (selectedProduct != null)
@@ -102,7 +112,7 @@ public partial class MainWindow : Window
     private void UpdateTotalPrice()
     {
         decimal totalPrice = _shopCartController.ShowPriceInShopCart();
-        MessageBox.Show($"Total Price: {totalPrice}", "Cart Total");
+        TotalPriceTextBlock.Text = $"Total Price: ${totalPrice:F2}";
     }
     
     private void UpdateCartListBox()
@@ -112,15 +122,28 @@ public partial class MainWindow : Window
 
         foreach (var product in cartProducts)
         {
-            CartListBox.Items.Add($"{product.Name} - {product.Type}");
+            CartListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type} ");
         }
     }
 
     private void Buy_Click(object sender, RoutedEventArgs e)
     {
-        ShopCart purchasableCart = _shopCartController.GetPurchasableProductsInShoppingCart();
-        MessageBox.Show($"Total Price: {purchasableCart.TotalPrice}", "Purchase Complete");
+        DiscountCardWindow discountCardWindow = new DiscountCardWindow();
+        if (discountCardWindow.ShowDialog() == true)
+        {
+            ShopCart purchasableCart = _shopCartController.GetPurchasableProductsInShoppingCart();
+            decimal finalPrice = purchasableCart.TotalPrice - (purchasableCart.TotalPrice * discountCardWindow.getDiscountByFoundCard()/100);
+            MessageBox.Show($"Final Price: {finalPrice:F2}", "Purchase Complete");
+            UpdateTotalPrice();
+            UpdateCartListBox();
+        }
+    }
+    
+    private void ClearCart_Click(object sender, RoutedEventArgs e)
+    {
+        _shopCartController.clearShopCart();
         UpdateCartListBox();
+        UpdateTotalPrice();
     }
     
 }

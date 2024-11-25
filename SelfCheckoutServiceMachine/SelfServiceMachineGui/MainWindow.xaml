@@ -27,7 +27,6 @@
                 <ComboBoxItem Content="PersonalCare"/>
             </ComboBox>
             <Button Content="Search by type" Width="250" Margin="1" Click="SearchByType_Click"/>
-            <!-- Добавляем ListBox под кнопками -->
             <ListBox x:Name="ResultsListBox" Width="250" Height="250" Margin="10" VerticalAlignment="Stretch"  
                      ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.Items>
@@ -36,7 +35,6 @@
             </ListBox>
         </StackPanel>
         
-        
         <StackPanel Orientation="Vertical" Grid.Column="1" Width="290" HorizontalAlignment="Right">
             <ListBox x:Name="CartListBox" Width="250" Height="250" Margin="10" VerticalAlignment="Stretch"
                      ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -44,8 +42,19 @@
                     <TextBlock Text="Shopping Cart" Foreground="Gray"/>
                 </ListBox.Items>
             </ListBox>
-            <Button Content="Add to Cart" Width="250" Margin="10" Click="AddToCart_Click"/>
-            <Button Content="Buy" Width="250" Margin="10" Click="Buy_Click"/>
+            <Button Content="Add to Cart" Width="250" Margin="5" Click="AddToCart_Click"/>
+            <Button Content="Buy" Width="250" Margin="5" Click="Buy_Click"/>
+            
+            <Button Content="Clear" Width="250" Margin="5" Click="ClearCart_Click"/>
+            
+            <TextBlock x:Name="TotalPriceTextBlock"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Bottom"
+                       Margin="10"
+                       FontSize="16"
+                       Foreground="Black"
+                       Text="Total Price: $0.00"/>
+            
         </StackPanel>
     </Grid>
 </Window>

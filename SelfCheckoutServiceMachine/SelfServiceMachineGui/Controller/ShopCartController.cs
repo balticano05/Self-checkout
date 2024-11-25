@@ -37,4 +37,9 @@ public class ShopCartController
         return _shopCartService.GetPurchasableProductsInShoppingCart();
     }
     
+    public void clearShopCart()
+    {
+        _shopCartService.clearShopCart();
+    }
+    
 }

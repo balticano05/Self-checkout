@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\App.xaml
-11407045341
+21752628158
 
-231659752519
+26-1742405589
 198915248976
-MainWindow.xaml;
+DiscountCardWindow.xaml;MainWindow.xaml;
 
 False
 

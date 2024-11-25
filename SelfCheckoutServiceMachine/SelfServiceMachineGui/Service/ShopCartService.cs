@@ -52,4 +52,10 @@ public class ShopCartService
         return purchasableShopCart;
     }
 
+    public void clearShopCart()
+    {
+        _shopCart.Products.Clear();
+        _shopCart.TotalPrice = 0.0m;
+    }
+
 }
