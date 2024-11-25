@@ -16,8 +16,10 @@
       <PackageReference Include="Shielded" Version="4.4.9" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Controller\" />
-    </ItemGroup>
+    <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
 
 </Project>

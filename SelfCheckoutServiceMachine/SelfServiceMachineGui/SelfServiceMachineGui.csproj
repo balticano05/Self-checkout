@@ -8,4 +8,10 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <Target Name="ChangeOutputType" AfterTargets="PrepareForBuild">
+    <PropertyGroup>
+      <OutputType>Exe</OutputType>
+    </PropertyGroup>
+  </Target>
+
 </Project>

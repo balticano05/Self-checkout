@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
+    "net8.0-windows7.0": {
       "Microsoft.Extensions.DependencyInjection/9.0.0-rc.2.24473.5": {
         "type": "package",
         "dependencies": {
@@ -244,7 +244,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
+    "net8.0-windows7.0": [
       "Microsoft.Extensions.DependencyInjection >= 9.0.0-rc.2.24473.5",
       "Serilog >= 4.1.1-dev-02318",
       "Serilog.Sinks.Console >= 6.0.0",
@@ -269,15 +269,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net8.0-windows"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
           "projectReferences": {}
         }
       },
@@ -293,8 +293,8 @@
       }
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
@@ -331,6 +331,9 @@
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
