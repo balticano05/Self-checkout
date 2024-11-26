@@ -5,96 +5,39 @@ namespace SelfCheckoutServiceMachine.Service;
 
 public class ProductService
 {
-    private ProductRepository _productRepository;
+    private readonly ProductRepository _productRepository;
 
     public ProductService()
     {
         _productRepository = new ProductRepository();
     }
 
-    public List<Product> searchInCatalogByName(string name)
+    public List<Product> SearchInCatalogByName(string name)
     {
-        List<Product> _foundListProducts = new List<Product>();
-        for (int i = 0; i < _productRepository.GetAll().Count; i++)
-        {
-            if (_productRepository.GetAll()[i].Name.Contains(name))
-            {
-                _foundListProducts.Add(_productRepository.GetAll()[i]);
-            }
-        }
-
-        return _foundListProducts;
+        return _productRepository.GetAll()
+            .Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            .ToList();
     }
 
-    public List<Product> searchInCatalogByType(string type)
+    public List<Product> SearchInCatalogByType(string type)
     {
-        List<Product> _foundListProducts = new List<Product>();
-        for (int i = 0; i < _productRepository.GetAll().Count; i++)
-        {
-            if (_productRepository.GetAll()[i].Type.Equals(Enum.Parse<TypeProduct>(type)))
-            {
-                _foundListProducts.Add(_productRepository.GetAll()[i]);
-            }
-        }
-
-        return _foundListProducts;
+        return _productRepository.GetAll()
+            .Where(p => p.Type.ToString().Equals(type, StringComparison.OrdinalIgnoreCase))
+            .ToList();
     }
 
-    public void handleProductBuying(ShopCart shopCart, DiscountCard discountCard, int sumOfMoney) 
+    public void UpdateProductStock(List<Product> products)
     {
-        for (int i = 0; i < shopCart.Products.Count; i++) 
+        foreach (var product in products)
         {
-            bool isFound = false;
-            int j = 0;
-        
-            for (; j < _productRepository.GetAll().Count; j++) 
+            var dbProduct = _productRepository.Get(product.Id);
+            if (dbProduct != null && dbProduct.QuantityInStock > 0)
             {
-                if (shopCart.Products[i].Name == _productRepository.GetAll()[j].Name) 
-                {
-                    isFound = true;
-                    break;
-                }
+                dbProduct.QuantityInStock--;
+                _productRepository.Update(dbProduct);
             }
-
-            if (!isFound) 
-            {
-                Console.WriteLine($"Product {shopCart.Products[i].Name} cannot be sold - not found in database.");
-                shopCart.TotalPrice -= shopCart.Products[i].Price;
-                shopCart.Products.RemoveAt(i);
-                i--; 
-                continue;
-            }
-
-            var productInDb = _productRepository.GetAll()[j];
-            if (productInDb.QuantityInStock <= 0)
-            {
-                shopCart.TotalPrice -= shopCart.Products[i].Price;
-                Console.WriteLine($"Product {shopCart.Products[i].Name} cannot be sold - out of stock.");
-                shopCart.Products.RemoveAt(i);
-                i--;
-                continue;
-            }
-
-            Product updatedProduct = _productRepository.GetAll()[j];
-            updatedProduct.QuantityInStock -= 1;
-            _productRepository.Update(updatedProduct);
-
-            if (discountCard != null)
-            {
-                shopCart.TotalPrice = shopCart.TotalPrice - (shopCart.TotalPrice * discountCard.Discount) / 100;
-            }
-
-            if (sumOfMoney >= shopCart.TotalPrice)
-            {
-                Console.WriteLine("The purchase was successful");
-                _productRepository.Save();
-            }
-            else
-            {
-                Console.WriteLine("Not enough money.");
-            }
-            
         }
+        _productRepository.Save();
     }
 
 }

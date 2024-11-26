@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using SelfCheckoutServiceMachine.Controller;
 using SelfCheckoutServiceMachine.Models;
 using SelfCheckoutServiceMachine.Repository;
 using SelfCheckoutServiceMachine.Service;
@@ -14,62 +13,95 @@ namespace SelfServiceMachineGui;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private ProductController _productController;
-    private ShopCartController _shopCartController;
-    
+    private readonly ProductService _productService;
+    private readonly ShopCartService _shopCartService;
+
     public MainWindow()
     {
         InitializeComponent();
-        _productController = new ProductController();
-        _shopCartController = new ShopCartController();
+        _productService = new ProductService();
+        _shopCartService = new ShopCartService();
     }
 
     private void SearchByName_Click(object sender, RoutedEventArgs e)
     {
         string name = NameSearchBox.Text;
-        List<Product> results = _productController.searchByName(name);
+        List<Product> results = _productService.SearchInCatalogByName(name);
         UpdateResultsListBox(results);
     }
 
     private void SearchByType_Click(object sender, RoutedEventArgs e)
     {
-        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem && selectedItem.Content.ToString() != "Select a product type")
+        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem && 
+            selectedItem.Content.ToString() != "Select a product type")
         {
             string type = selectedItem.Content.ToString();
-            List<Product> results = _productController.searchByType(type);
+            List<Product> results = _productService.SearchInCatalogByType(type);
             UpdateResultsListBox(results);
         }
         else
         {
-            ResultsListBox.Items.Clear();
-            TextBlock notFoundText = new TextBlock
-            {
-                Text = "Not found such product",
-                Foreground = Brushes.Teal
-            };
-            ResultsListBox.Items.Add(notFoundText);
+            ShowNotFoundMessage();
         }
     }
 
     private void UpdateResultsListBox(List<Product> products)
     {
         ResultsListBox.Items.Clear();
-    
-        if (products.Count == 0)
+        if (!products.Any())
         {
-            TextBlock notFoundText = new TextBlock
-            {
-                Text = "Not found such product",
-                Foreground = Brushes.Teal
-            };
-            ResultsListBox.Items.Add(notFoundText);
+            ShowNotFoundMessage();
+            return;
         }
-        else
+
+        foreach (var product in products)
         {
-            foreach (var product in products)
+            if (product.QuantityInStock <= 0)
             {
-                ResultsListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type} ");
+                ResultsListBox.Items.Add(new TextBlock
+                {
+                    Text = $"{product.Name} - Out of Stock",
+                    Foreground = Brushes.Red
+                });
             }
+            else
+            {
+                int quantityInCart = _shopCartService.ShowAllProductsInShopCart().Count(p => p.Id == product.Id);
+                int remainingStock = product.QuantityInStock - quantityInCart;
+            
+                if (remainingStock <= 0)
+                {
+                    ResultsListBox.Items.Add(new TextBlock
+                    {
+                        Text = $"{product.Name} - No more items available",
+                        Foreground = Brushes.Red
+                    });
+                }
+                else
+                {
+                    ResultsListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type} (Available: {remainingStock})");
+                }
+            }
+        }
+    }
+
+    private void ShowNotFoundMessage()
+    {
+        ResultsListBox.Items.Clear();
+        TextBlock notFoundText = new TextBlock
+        {
+            Text = "Not found such product",
+            Foreground = Brushes.Teal
+        };
+        ResultsListBox.Items.Add(notFoundText);
+    }
+
+    private void NameSearchBoxGotFocus(object sender, RoutedEventArgs e)
+    {
+        if (NameSearchBox.Text == "Enter name's product")
+        {
+            NameSearchBox.Text = "";
+            NameSearchBox.Foreground = Brushes.Black;
         }
     }
     
@@ -81,6 +113,22 @@ public partial class MainWindow : Window
             NameSearchBox.Foreground = Brushes.Black;
         }
     }
+    
+    private void SearchByTypeClick(object sender, RoutedEventArgs e)
+    {
+        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem && 
+            selectedItem.Content.ToString() != "Select a product type")
+        {
+            string type = selectedItem.Content.ToString();
+            List<Product> results = _productService.SearchInCatalogByType(type);
+            UpdateResultsListBox(results);
+        }
+        else
+        {
+            ShowNotFoundMessage();
+        }
+    }
+
 
     private void NameSearchBox_LostFocus(object sender, RoutedEventArgs e)
     {
@@ -90,63 +138,97 @@ public partial class MainWindow : Window
             NameSearchBox.Foreground = Brushes.Gray;
         }
     }
-    
+
     private void AddToCart_Click(object sender, RoutedEventArgs e)
     {
-        if (ResultsListBox.SelectedItem is string selectedProductString)
+        try
         {
-            var productDetails = selectedProductString.Split(" - ");
-            string productName = productDetails[1];
-            
-            Product selectedProduct = _productController.searchByName(productName).First();
-            if (selectedProduct != null)
+            if (ResultsListBox.SelectedItem is string selectedProductString)
             {
-                _shopCartController.putIn(selectedProduct);
+                var productDetails = selectedProductString.Split(" - ");
+                string productName = productDetails[1];
+                Product selectedProduct = _productService.SearchInCatalogByName(productName).First();
+
+                if (selectedProduct.QuantityInStock <= 0)
+                {
+                    new ErrorWindow("This product is out of stock!").ShowDialog();
+                    return;
+                }
+
+                if (!_shopCartService.CanAddProduct(selectedProduct))
+                {
+                    new ErrorWindow("Cannot add more items - stock limit reached!").ShowDialog();
+                    return;
+                }
+
+                _shopCartService.PutIn(selectedProduct);
                 UpdateCartListBox();
                 UpdateTotalPrice();
             }
-            
         }
-
+        catch (Exception ex)
+        {
+            new ErrorWindow($"Error adding product to cart: {ex.Message}").ShowDialog();
+        }
     }
-    
+
     private void UpdateTotalPrice()
     {
-        decimal totalPrice = _shopCartController.ShowPriceInShopCart();
+        decimal totalPrice = _shopCartService.ShowPriceInShopCart();
         TotalPriceTextBlock.Text = $"Total Price: ${totalPrice:F2}";
     }
-    
+
     private void UpdateCartListBox()
     {
         CartListBox.Items.Clear();
-        List<Product> cartProducts = _shopCartController.ShowAllProductsInShopCart();
-
+        var cartProducts = _shopCartService.ShowAllProductsInShopCart();
         foreach (var product in cartProducts)
         {
-            CartListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type} ");
+            CartListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type}");
         }
     }
 
     private void Buy_Click(object sender, RoutedEventArgs e)
     {
-        ShopCart purchasableCart = _shopCartController.GetPurchasableProductsInShoppingCart();
-        if (purchasableCart.Products.Count == 0)
+        try
         {
-            MessageBox.Show("Cart is empty!");
-            return;
+            var purchaseResult = _shopCartService.PrepareForPurchase();
+            if (!purchaseResult.IsSuccess)
+            {
+                new ErrorWindow(purchaseResult.Message).ShowDialog();
+                return;
+            }
+
+            var result = MessageBox.Show("Would you like to use a discount card?", "Discount Card", 
+                MessageBoxButton.YesNo);
+
+            decimal finalPrice;
+            DiscountCard discountCard = null;
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var discountCardWindow = new DiscountCardWindow();
+                if (discountCardWindow.ShowDialog() == true)
+                {
+                    discountCard = discountCardWindow.FoundDiscountCard;
+                    finalPrice = _shopCartService.CalculateFinalPrice(discountCard);
+                }
+                else
+                {
+                    finalPrice = _shopCartService.ShowPriceInShopCart();
+                }
+            }
+            else
+            {
+                finalPrice = _shopCartService.ShowPriceInShopCart();
+            }
+
+            ProcessBalanceAndPurchase(finalPrice, discountCard);
         }
-
-        decimal finalPrice = purchasableCart.TotalPrice;
-        DiscountCardWindow discountCardWindow = new DiscountCardWindow();
-        bool? result = discountCardWindow.ShowDialog();
-
-        if (result == true)
+        catch (Exception ex)
         {
-            decimal discount = discountCardWindow.getDiscountByFoundCard();
-            finalPrice = purchasableCart.TotalPrice - (purchasableCart.TotalPrice * discount / 100);
+            new ErrorWindow($"Error processing purchase: {ex.Message}").ShowDialog();
         }
-
-        ProcessBalanceAndPurchase(finalPrice, discountCardWindow.FoundDiscountCard);
     }
 
     private void ProcessBalanceAndPurchase(decimal finalPrice, DiscountCard card)
@@ -156,121 +238,113 @@ public partial class MainWindow : Window
             decimal balance = ShowBalanceInputDialog();
             if (balance >= finalPrice)
             {
-                if (card != null)
+                if (ProcessPurchase(finalPrice, balance, card))
                 {
-                    card.Discount = balance - finalPrice;
-                }
-                ProcessPurchase(finalPrice, balance, card);
-                break;
-            }
-            else
-            {
-                var result = MessageBox.Show(
-                    "Insufficient funds! Would you like to try again?",
-                    "Error",
-                    MessageBoxButton.YesNo);
-
-                if (result == MessageBoxResult.No)
-                {
-                    _shopCartController.clearShopCart();
+                    _productService.UpdateProductStock(_shopCartService.ShowAllProductsInShopCart());
+                    _shopCartService.ClearShopCart();
                     UpdateCartListBox();
                     UpdateTotalPrice();
-                    break;
                 }
+                break;
+            }
+            
+            var result = MessageBox.Show(
+                "Insufficient funds! Would you like to try again?",
+                "Error",
+                MessageBoxButton.YesNo);
+                
+            if (result == MessageBoxResult.No)
+            {
+                _shopCartService.ClearShopCart();
+                UpdateCartListBox();
+                UpdateTotalPrice();
+                break;
             }
         }
     }
 
-    private void ProcessPurchase(decimal finalPrice, decimal balance, DiscountCard card)
+    private bool ProcessPurchase(decimal finalPrice, decimal balance, DiscountCard card)
     {
         var printReceiptWindow = new PrintReceiptWindow();
         if (printReceiptWindow.ShowDialog() == true && printReceiptWindow.PrintReceipt)
         {
-            StringBuilder receipt = new StringBuilder();
-            receipt.AppendLine("=== RECEIPT ===");
-            receipt.AppendLine($"Date: {DateTime.Now}");
-            receipt.AppendLine("Products:");
-            receipt.AppendLine("-------------------");
-
-            foreach (var product in _shopCartController.ShowAllProductsInShopCart())
-            {
-                receipt.AppendLine($"{product.Name} - ${product.Price:F2}");
-            }
-
-            receipt.AppendLine("-------------------");
-            receipt.AppendLine($"Total Price: ${_shopCartController.ShowPriceInShopCart():F2}");
-        
-            if (card != null)
-            {
-                receipt.AppendLine($"Discount Card Applied: {card.Discount}%");
-                receipt.AppendLine($"Final Price: ${finalPrice:F2}");
-            }
-
-            receipt.AppendLine($"Paid Amount: ${balance:F2}");
-            receipt.AppendLine($"Change: ${balance - finalPrice:F2}");
-            receipt.AppendLine("=== Thank You ===");
-
-            var receiptWindow = new ReceiptWindow(receipt.ToString());
+            var receipt = GenerateReceipt(finalPrice, balance, card);
+            var receiptWindow = new ReceiptWindow(receipt);
             receiptWindow.Show();
+            MessageBox.Show($"Final price: {finalPrice:F2}", "Purchase completed");
+            return true;
         }
-
-        MessageBox.Show($"Final price: {finalPrice:F2}", "Purchase completed");
-        _shopCartController.clearShopCart();
-        UpdateCartListBox();
-        UpdateTotalPrice();
+        return false;
     }
 
-private decimal ShowBalanceInputDialog()
-{
-    Window balanceWindow = new Window
+    private string GenerateReceipt(decimal finalPrice, decimal balance, DiscountCard card)
     {
-        Title = "Enter balance",
-        Width = 300,
-        Height = 150,
-        WindowStartupLocation = WindowStartupLocation.CenterScreen
-    };
-
-    StackPanel panel = new StackPanel
-    {
-        Margin = new Thickness(10)
-    };
-
-    TextBox balanceInput = new TextBox
-    {
-        Margin = new Thickness(0, 5, 0, 5)
-    };
-
-    Button okButton = new Button
-    {
-        Content = "OK",
-        Width = 70
-    };
-
-    decimal balance = 0;
-    okButton.Click += (s, e) =>
-    {
-        if (decimal.TryParse(balanceInput.Text, out balance))
+        StringBuilder receipt = new StringBuilder();
+        receipt.AppendLine("=== RECEIPT ===");
+        receipt.AppendLine($"Date: {DateTime.Now}");
+        receipt.AppendLine("Products:");
+        receipt.AppendLine("-------------------");
+        
+        foreach (var product in _shopCartService.ShowAllProductsInShopCart())
         {
-            balanceWindow.DialogResult = true;
+            receipt.AppendLine($"{product.Name} - ${product.Price:F2}");
         }
-        else
+        
+        receipt.AppendLine("-------------------");
+        receipt.AppendLine($"Total Price: ${_shopCartService.ShowPriceInShopCart():F2}");
+        
+        if (card != null)
         {
-            MessageBox.Show("Enter a valid amount!");
+            receipt.AppendLine($"Discount Card Applied: {card.Discount}%");
+            receipt.AppendLine($"Final Price: ${finalPrice:F2}");
         }
-    };
+        
+        receipt.AppendLine($"Paid Amount: ${balance:F2}");
+        receipt.AppendLine($"Change: ${balance - finalPrice:F2}");
+        receipt.AppendLine("=== Thank You ===");
+        
+        return receipt.ToString();
+    }
 
-    panel.Children.Add(new TextBlock { Text = "Enter amount:" });
-    panel.Children.Add(balanceInput);
-    panel.Children.Add(okButton);
-    balanceWindow.Content = panel;
-    balanceWindow.ShowDialog();
+    private decimal ShowBalanceInputDialog()
+    {
+        Window balanceWindow = new Window
+        {
+            Title = "Enter balance",
+            Width = 300,
+            Height = 150,
+            WindowStartupLocation = WindowStartupLocation.CenterScreen
+        };
 
-    return balance;
-}
-    
+        StackPanel panel = new StackPanel { Margin = new Thickness(10) };
+        TextBox balanceInput = new TextBox { Margin = new Thickness(0, 5, 0, 5) };
+        Button okButton = new Button { Content = "OK", Width = 70 };
+        
+        decimal balance = 0;
+        okButton.Click += (s, e) =>
+        {
+            if (decimal.TryParse(balanceInput.Text, out balance))
+            {
+                balanceWindow.DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Enter a valid amount!");
+            }
+        };
+
+        panel.Children.Add(new TextBlock { Text = "Enter amount:" });
+        panel.Children.Add(balanceInput);
+        panel.Children.Add(okButton);
+        balanceWindow.Content = panel;
+        balanceWindow.ShowDialog();
+
+        return balance;
+    }
+
     private void ClearCart_Click(object sender, RoutedEventArgs e)
     {
-        _shopCartController.clearShopCart();
+        _shopCartService.ClearShopCart();
         UpdateCartListBox();
         UpdateTotalPrice();
     }

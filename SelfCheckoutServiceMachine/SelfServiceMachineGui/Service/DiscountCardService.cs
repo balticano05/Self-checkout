@@ -12,7 +12,7 @@ public class DiscountCardService
         _discountCardRepository = new DiscountCardRepository();
     }
 
-    public DiscountCard searchDiscountCardByNumber(string number)
+    public DiscountCard SearchDiscountCardByNumber(string number)
     {
         for (int i = 0; i < _discountCardRepository.GetAll().Count; i++)
         {
@@ -24,4 +24,13 @@ public class DiscountCardService
 
         return null;
     }
+
+    public DiscountCard CreateNewDiscountCard(string cardNumber)
+    {
+        return new DiscountCard.Builder()
+            .SetDiscount(1m)
+            .SetNumber(cardNumber)
+            .Build();
+    }
+    
 }

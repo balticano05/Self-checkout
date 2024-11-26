@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SelfCheckoutServiceMachine")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d11f757c945c508c88f40fdb8d5be261b363dd6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9deec504edc880c185b4b78db78e142176d2ed97")]
 [assembly: System.Reflection.AssemblyProductAttribute("SelfCheckoutServiceMachine")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SelfCheckoutServiceMachine")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
