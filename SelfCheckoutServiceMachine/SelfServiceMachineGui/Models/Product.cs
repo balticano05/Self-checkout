@@ -9,7 +9,7 @@ public class Product
     public decimal WholesalePrice { get; private set; }
     public TypeProduct Type { get; private set; }
     public bool WholesaleProduct { get; private set; }
-    public int QuantityInStock { get; private set; }
+    public int QuantityInStock { get; set; }
 
     private Product() { }
 

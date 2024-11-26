@@ -4,7 +4,7 @@ public class DiscountCard
 {
     public int Id { get; private set; }
     public string Number { get; private set; }
-    public decimal Discount { get; private set; }
+    public decimal Discount { get; set; }
 
     public DiscountCard() { }
 
