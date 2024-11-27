@@ -8,13 +8,7 @@ public class CsvFileWriter
     {
         try
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                foreach (string line in lines)
-                {
-                    writer.WriteLine(line);
-                }
-            }
+            File.WriteAllLines(filePath, lines.AsEnumerable());
         }
         catch (Exception ex)
         {

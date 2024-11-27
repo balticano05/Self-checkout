@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SelfCheckoutServiceMachine.Models;
-using SelfCheckoutServiceMachine.Repository;
 using SelfCheckoutServiceMachine.Service;
 
 namespace SelfServiceMachineGui;
@@ -13,30 +12,28 @@ namespace SelfServiceMachineGui;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ProductService _productService;
-    private readonly ShopCartService _shopCartService;
+    private readonly SelfCheckoutService _selfCheckoutService;
 
     public MainWindow()
     {
         InitializeComponent();
-        _productService = new ProductService();
-        _shopCartService = new ShopCartService();
+        _selfCheckoutService = new SelfCheckoutService();
     }
 
     private void SearchByName_Click(object sender, RoutedEventArgs e)
     {
         string name = NameSearchBox.Text;
-        List<Product> results = _productService.SearchInCatalogByName(name);
+        List<Product> results = _selfCheckoutService.SearchProducts(name);
         UpdateResultsListBox(results);
     }
 
     private void SearchByType_Click(object sender, RoutedEventArgs e)
     {
-        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem && 
+        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem &&
             selectedItem.Content.ToString() != "Select a product type")
         {
             string type = selectedItem.Content.ToString();
-            List<Product> results = _productService.SearchInCatalogByType(type);
+            List<Product> results = _selfCheckoutService.SearchProductsByType(type);
             UpdateResultsListBox(results);
         }
         else
@@ -54,6 +51,7 @@ public partial class MainWindow : Window
             return;
         }
 
+        var cartProducts = _selfCheckoutService.GetCartProducts();
         foreach (var product in products)
         {
             if (product.QuantityInStock <= 0)
@@ -66,9 +64,9 @@ public partial class MainWindow : Window
             }
             else
             {
-                int quantityInCart = _shopCartService.ShowAllProductsInShopCart().Count(p => p.Id == product.Id);
+                int quantityInCart = cartProducts.Count(p => p.Id == product.Id);
                 int remainingStock = product.QuantityInStock - quantityInCart;
-            
+
                 if (remainingStock <= 0)
                 {
                     ResultsListBox.Items.Add(new TextBlock
@@ -120,7 +118,7 @@ public partial class MainWindow : Window
             selectedItem.Content.ToString() != "Select a product type")
         {
             string type = selectedItem.Content.ToString();
-            List<Product> results = _productService.SearchInCatalogByType(type);
+            List<Product> results = _selfCheckoutService.SearchProductsByType(type);
             UpdateResultsListBox(results);
         }
         else
@@ -147,23 +145,17 @@ public partial class MainWindow : Window
             {
                 var productDetails = selectedProductString.Split(" - ");
                 string productName = productDetails[1];
-                Product selectedProduct = _productService.SearchInCatalogByName(productName).First();
+                Product selectedProduct = _selfCheckoutService.SearchProducts(productName).First();
 
-                if (selectedProduct.QuantityInStock <= 0)
+                if (_selfCheckoutService.AddProductToCart(selectedProduct))
                 {
-                    new ErrorWindow("This product is out of stock!").ShowDialog();
-                    return;
+                    UpdateCartListBox();
+                    UpdateTotalPrice();
                 }
-
-                if (!_shopCartService.CanAddProduct(selectedProduct))
+                else
                 {
-                    new ErrorWindow("Cannot add more items - stock limit reached!").ShowDialog();
-                    return;
+                    new ErrorWindow("Cannot add product to cart - out of stock or limit reached!").ShowDialog();
                 }
-
-                _shopCartService.PutIn(selectedProduct);
-                UpdateCartListBox();
-                UpdateTotalPrice();
             }
         }
         catch (Exception ex)
@@ -174,14 +166,14 @@ public partial class MainWindow : Window
 
     private void UpdateTotalPrice()
     {
-        decimal totalPrice = _shopCartService.ShowPriceInShopCart();
+        decimal totalPrice = _selfCheckoutService.GetTotalPrice();
         TotalPriceTextBlock.Text = $"Total Price: ${totalPrice:F2}";
     }
 
     private void UpdateCartListBox()
     {
         CartListBox.Items.Clear();
-        var cartProducts = _shopCartService.ShowAllProductsInShopCart();
+        var cartProducts = _selfCheckoutService.GetCartProducts();
         foreach (var product in cartProducts)
         {
             CartListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type}");
@@ -192,18 +184,9 @@ public partial class MainWindow : Window
     {
         try
         {
-            var purchaseResult = _shopCartService.PrepareForPurchase();
-            if (!purchaseResult.IsSuccess)
-            {
-                new ErrorWindow(purchaseResult.Message).ShowDialog();
-                return;
-            }
-
-            var result = MessageBox.Show("Would you like to use a discount card?", "Discount Card", 
-                MessageBoxButton.YesNo);
-
-            decimal finalPrice;
             DiscountCard discountCard = null;
+            var result = MessageBox.Show("Would you like to use a discount card?", "Discount Card",
+                MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -211,51 +194,46 @@ public partial class MainWindow : Window
                 if (discountCardWindow.ShowDialog() == true)
                 {
                     discountCard = discountCardWindow.FoundDiscountCard;
-                    finalPrice = _shopCartService.CalculateFinalPrice(discountCard);
                 }
-                else
-                {
-                    finalPrice = _shopCartService.ShowPriceInShopCart();
-                }
-            }
-            else
-            {
-                finalPrice = _shopCartService.ShowPriceInShopCart();
             }
 
-            ProcessBalanceAndPurchase(finalPrice, discountCard);
+            var purchaseResult = _selfCheckoutService.ProcessPurchase(discountCard);
+            if (!purchaseResult.IsSuccess)
+            {
+                new ErrorWindow(purchaseResult.Message).ShowDialog();
+                return;
+            }
+
+            ProcessBalanceAndPurchase(purchaseResult.FinalPrice, discountCard);
         }
         catch (Exception ex)
         {
             new ErrorWindow($"Error processing purchase: {ex.Message}").ShowDialog();
         }
     }
-
     private void ProcessBalanceAndPurchase(decimal finalPrice, DiscountCard card)
     {
         while (true)
         {
             decimal balance = ShowBalanceInputDialog();
-            if (balance >= finalPrice)
+            if (_selfCheckoutService.CompletePurchase(balance, finalPrice))
             {
                 if (ProcessPurchase(finalPrice, balance, card))
                 {
-                    _productService.UpdateProductStock(_shopCartService.ShowAllProductsInShopCart());
-                    _shopCartService.ClearShopCart();
                     UpdateCartListBox();
                     UpdateTotalPrice();
                 }
                 break;
             }
-            
+
             var result = MessageBox.Show(
                 "Insufficient funds! Would you like to try again?",
                 "Error",
                 MessageBoxButton.YesNo);
-                
+
             if (result == MessageBoxResult.No)
             {
-                _shopCartService.ClearShopCart();
+                _selfCheckoutService.ClearCart();
                 UpdateCartListBox();
                 UpdateTotalPrice();
                 break;
@@ -268,7 +246,7 @@ public partial class MainWindow : Window
         var printReceiptWindow = new PrintReceiptWindow();
         if (printReceiptWindow.ShowDialog() == true && printReceiptWindow.PrintReceipt)
         {
-            var receipt = GenerateReceipt(finalPrice, balance, card);
+            var receipt = _selfCheckoutService.GenerateReceipt(finalPrice, balance, card);
             var receiptWindow = new ReceiptWindow(receipt);
             receiptWindow.Show();
             MessageBox.Show($"Final price: {finalPrice:F2}", "Purchase completed");
@@ -276,6 +254,7 @@ public partial class MainWindow : Window
         }
         return false;
     }
+
 
     private string GenerateReceipt(decimal finalPrice, decimal balance, DiscountCard card)
     {
@@ -285,13 +264,13 @@ public partial class MainWindow : Window
         receipt.AppendLine("Products:");
         receipt.AppendLine("-------------------");
         
-        foreach (var product in _shopCartService.ShowAllProductsInShopCart())
+        foreach (var product in _selfCheckoutService.GetCartProducts())
         {
             receipt.AppendLine($"{product.Name} - ${product.Price:F2}");
         }
         
         receipt.AppendLine("-------------------");
-        receipt.AppendLine($"Total Price: ${_shopCartService.ShowPriceInShopCart():F2}");
+        receipt.AppendLine($"Total Price: ${_selfCheckoutService.GetCartProducts():F2}");
         
         if (card != null)
         {
@@ -344,7 +323,7 @@ public partial class MainWindow : Window
 
     private void ClearCart_Click(object sender, RoutedEventArgs e)
     {
-        _shopCartService.ClearShopCart();
+        _selfCheckoutService.ClearCart();
         UpdateCartListBox();
         UpdateTotalPrice();
     }

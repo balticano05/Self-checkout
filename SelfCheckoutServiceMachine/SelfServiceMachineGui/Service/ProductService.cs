@@ -12,32 +12,32 @@ public class ProductService
         _productRepository = new ProductRepository();
     }
 
-    public List<Product> SearchInCatalogByName(string name)
-    {
-        return _productRepository.GetAll()
+    public List<Product> SearchInCatalogByName(string name) =>
+        _productRepository.GetAll()
             .Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
             .ToList();
-    }
 
-    public List<Product> SearchInCatalogByType(string type)
-    {
-        return _productRepository.GetAll()
+    public List<Product> SearchInCatalogByType(string type) =>
+        _productRepository.GetAll()
             .Where(p => p.Type.ToString().Equals(type, StringComparison.OrdinalIgnoreCase))
             .ToList();
-    }
 
     public void UpdateProductStock(List<Product> products)
     {
-        foreach (var product in products)
-        {
-            var dbProduct = _productRepository.Get(product.Id);
-            if (dbProduct != null && dbProduct.QuantityInStock > 0)
+        var productsToUpdate = _productRepository.GetAll()
+            .Join(products,
+                dbProduct => dbProduct.Id,
+                product => product.Id,
+                (dbProduct, _) => dbProduct)
+            .Where(p => p.QuantityInStock > 0)
+            .Select(p =>
             {
-                dbProduct.QuantityInStock--;
-                _productRepository.Update(dbProduct);
-            }
-        }
+                p.QuantityInStock--;
+                return p;
+            })
+            .ToList();
+
+        productsToUpdate.ForEach(p => _productRepository.Update(p));
         _productRepository.Save();
     }
-
 }

@@ -8,58 +8,52 @@ namespace SelfCheckoutServiceMachine.Repository;
 public class DiscountCardRepository
 {
     private List<DiscountCard> _discountCards;
-    private DiscountCardMapper _discountCardMapper;
-    private string filePath;
+    private readonly DiscountCardMapper _discountCardMapper;
+    private readonly string _filePath;
 
     public DiscountCardRepository()
     {
         _discountCardMapper = new DiscountCardMapper();
-        filePath = Path.Combine(
-            Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, 
-            "Resources", 
+        _filePath = Path.Combine(
+            Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName,
+            "Resources",
             "DiscountCard.csv"
         );
         _discountCards = _discountCardMapper
-            .MapStringListToDiscountCards(CsvFileReader
-                .ReadFile(filePath));
+            .MapStringListToDiscountCards(CsvFileReader.ReadFile(_filePath));
     }
 
-    public void Add(DiscountCard discountCard)    
+    public void Add(DiscountCard discountCard)
     {
         _discountCards.Add(discountCard);
     }
 
-    public DiscountCard Get(int id) 
+    public DiscountCard Get(int id)
     {
-        foreach (var discountCard in _discountCards)
-        {
-            if (discountCard.Id.Equals(id))
-            {
-                return discountCard;
-            }
-        }
-        return null;
+        return _discountCards.FirstOrDefault(card => card.Id.Equals(id));
     }
 
-    public List<DiscountCard> GetAll() 
+    public List<DiscountCard> GetAll()
     {
         return _discountCards;
     }
 
     public void Update(DiscountCard updatedDiscountCard)
     {
-        for (int i = 0; i < _discountCards.Count; i++)
+        var cardIndex = _discountCards
+            .FindIndex(card => card.Id.Equals(updatedDiscountCard.Id));
+        
+        if (cardIndex != -1)
         {
-            if (_discountCards[i].Id.Equals(updatedDiscountCard.Id))
-            {
-                _discountCards[i] = updatedDiscountCard;
-                break;
-            }
+            _discountCards[cardIndex] = updatedDiscountCard;
         }
     }
 
     public void Save()
     {
-        CsvFileWriter.WriteFile(filePath, _discountCardMapper.MapDiscountCardsToStringList(_discountCards));
+        CsvFileWriter.WriteFile(
+            _filePath, 
+            _discountCardMapper.MapDiscountCardsToStringList(_discountCards)
+        );
     }
 }

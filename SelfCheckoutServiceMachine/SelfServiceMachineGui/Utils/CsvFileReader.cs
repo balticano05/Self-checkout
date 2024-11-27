@@ -6,24 +6,14 @@ public class CsvFileReader
 {
     public static List<string> ReadFile(string filePath)
     {
-        var lines = new List<string>();
-
         try
         {
-            using (var reader = new StreamReader(filePath))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    lines.Add(line);
-                }
-            }
+            return File.ReadAllLines(filePath).ToList();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error writing products file: {ex.Message}");
+            return new List<string>();
         }
-
-        return lines;
     }
 }

@@ -1,26 +1,25 @@
 ﻿using System.IO;
 using SelfCheckoutServiceMachine.Models;
 using SelfCheckoutServiceMachine.Mapper;
-using SelfCheckoutServiceMachine.Resources;
 using SelfCheckoutServiceMachine.Utils;
 
 namespace SelfCheckoutServiceMachine.Repository;
 
 public class ProductRepository
 {
-    private List<Product> _products;
-    private ProductMapper _productMapper;
-    private string filePath;
+    private readonly List<Product> _products;
+    private readonly ProductMapper _productMapper;
+    private readonly string _filePath;
 
     public ProductRepository()
     {
         _productMapper = new ProductMapper();
-        filePath = Path.Combine(
-            Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, 
-            "Resources", 
+        _filePath = Path.Combine(
+            Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.FullName ?? string.Empty,
+            "Resources",
             "Products.csv"
         );
-        _products = _productMapper.MapStringListToProducts(CsvFileReader.ReadFile(filePath));
+        _products = _productMapper.MapStringListToProducts(CsvFileReader.ReadFile(_filePath));
     }
 
     public void Add(Product product)
@@ -28,38 +27,27 @@ public class ProductRepository
         _products.Add(product);
     }
 
-    public Product Get(int id) 
+    public Product? Get(int id)
     {
-        foreach (var product in _products)
-        {
-            if (product.Id.Equals(id))
-            {
-                return product;
-            }
-        }
-        return null;
+        return _products.FirstOrDefault(p => p.Id == id);
     }
 
-    public List<Product> GetAll() 
+    public List<Product> GetAll()
     {
-        return _products;
+        return _products.ToList();
     }
 
     public void Update(Product updatedProduct)
     {
-        for (int i = 0; i < _products.Count; i++)
+        var productIndex = _products.FindIndex(p => p.Id == updatedProduct.Id);
+        if (productIndex != -1)
         {
-            if (_products[i].Id.Equals(updatedProduct.Id))
-            {
-                _products[i] = updatedProduct;
-                break;
-            }
+            _products[productIndex] = updatedProduct;
         }
     }
 
     public void Save()
     {
-        CsvFileWriter.WriteFile(filePath, _productMapper.MapProductsToStringList(_products));    
+        CsvFileWriter.WriteFile(_filePath, _productMapper.MapProductsToStringList(_products));
     }
-    
 }

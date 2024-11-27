@@ -15,7 +15,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 14;Drinking water 1.51;0.80;Bottled water;0.50;Beverages;False;100
 15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;16
 16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;12
-17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;47
+17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;46
 18;Paulaner 0.51;1.10;German beer;0.80;Alcohol;False;37
 19;Whiskey Jim Beam 1l;13.99;Bourbon whiskey;10.00;Alcohol;False;30
 20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;17
@@ -69,7 +69,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 68;Cod fillet 400g;6.90;Fresh cod fish;5.50;Seafood;False;18
 69;Mussels 500g;5.40;Fresh mussels;4.20;Seafood;True;10
 70;Frozen pizza 400g;3.99;Margherita pizza;3.00;FrozenFoods;True;40
-71;Ice cream 1L;4.50;Vanilla flavor;3.50;FrozenFoods;True;25
+71;Ice cream 1L;4.50;Vanilla flavor;3.50;FrozenFoods;True;23
 72;Frozen vegetables mix 500g;2.80;Mixed vegetables;2.00;FrozenFoods;True;34
 73;Frozen fish fingers 300g;4.20;Breaded fish;3.30;FrozenFoods;True;28
 74;Frozen berries 400g;3.90;Mixed berries;3.00;FrozenFoods;True;28
