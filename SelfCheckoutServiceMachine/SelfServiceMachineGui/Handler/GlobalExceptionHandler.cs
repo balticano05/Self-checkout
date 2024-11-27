@@ -15,10 +15,7 @@ public class GlobalExceptionHandler
             e.Handled = true;
         };
 
-        AppDomain.CurrentDomain.UnhandledException += (s, e) =>
-        {
-            HandleExcpetion(e.ExceptionObject as Exception);
-        };
+        AppDomain.CurrentDomain.UnhandledException += (s, e) => { HandleExcpetion(e.ExceptionObject as Exception); };
 
         TaskScheduler.UnobservedTaskException += (s, e) =>
         {
@@ -29,10 +26,6 @@ public class GlobalExceptionHandler
 
     public static void HandleExcpetion(Exception ex)
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            _showError?.Invoke(ex);
-        });
+        Application.Current.Dispatcher.Invoke(() => { _showError?.Invoke(ex); });
     }
-    
-} 
+}

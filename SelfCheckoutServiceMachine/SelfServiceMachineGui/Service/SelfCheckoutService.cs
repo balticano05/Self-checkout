@@ -60,7 +60,7 @@ public class SelfCheckoutService
         if (!purchaseResult.IsSuccess)
             return (false, purchaseResult.Message, 0);
 
-        decimal finalPrice = discountCard != null 
+        decimal finalPrice = discountCard != null
             ? _shopCartService.CalculateFinalPrice(discountCard)
             : _shopCartService.ShowPriceInShopCart();
 
@@ -73,7 +73,7 @@ public class SelfCheckoutService
             return false;
 
         _productService.UpdateProductStock(_shopCartService.ShowAllProductsInShopCart());
-        
+
         return true;
     }
 
@@ -101,13 +101,13 @@ public class SelfCheckoutService
             receipt.AppendLine($"Price After Discount: ${finalPrice:F2}");
         }
 
-        receipt.AppendLine('\n'+$"\nPaid Amount: ${balance:F2}");
+        receipt.AppendLine('\n' + $"\nPaid Amount: ${balance:F2}");
         receipt.AppendLine($"Change: ${balance - finalPrice:F2}");
         receipt.AppendLine("======== Thank You ========");
 
         return receipt.ToString();
     }
-    
+
     public void SaveReceiptToPdf(string receiptContent)
     {
         string fileName = $"Receipt_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
@@ -120,8 +120,7 @@ public class SelfCheckoutService
         }
 
         filePath = Path.Combine(filePath, fileName);
-    
+
         _pdfReceiptService.GeneratePdfReceipt(receiptContent, filePath);
     }
-    
 }

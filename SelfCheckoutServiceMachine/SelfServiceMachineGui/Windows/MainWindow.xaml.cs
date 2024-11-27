@@ -250,12 +250,12 @@ public partial class MainWindow : Window
         if (printReceiptWindow.ShowDialog() == true && printReceiptWindow.PrintReceipt)
         {
             var receipt = _selfCheckoutService.GenerateReceipt(finalPrice, balance, card);
-        
+
             try
             {
                 _selfCheckoutService.SaveReceiptToPdf(receipt);
-                MessageBox.Show("Receipt has been saved to PDF on your desktop!", "Success");
-            
+                MessageBox.Show("Receipt has been saved to PDF!", "Success");
+
                 var receiptWindow = new ReceiptWindow(receipt);
                 receiptWindow.Show();
                 MessageBox.Show($"Final price: {finalPrice:F2}", "Purchase completed");
@@ -313,5 +313,4 @@ public partial class MainWindow : Window
         UpdateCartListBox();
         UpdateTotalPrice();
     }
-    
 }

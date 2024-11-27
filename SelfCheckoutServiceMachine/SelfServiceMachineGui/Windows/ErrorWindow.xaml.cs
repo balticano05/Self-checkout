@@ -7,17 +7,16 @@ namespace SelfServiceMachineGui;
 
 public partial class ErrorWindow : Window
 {
-    
     private string imagePath = Path.Combine(
         Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName,
         "Resources",
         "error-icon.png"
     );
-    
+
     public ErrorWindow(string errorMessage)
     {
         InitializeComponent();
-        
+
         this.Width = 400;
         this.Height = 200;
         this.Title = "Error";

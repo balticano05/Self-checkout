@@ -42,7 +42,7 @@ public class DiscountCardRepository
     {
         var cardIndex = _discountCards
             .FindIndex(card => card.Id.Equals(updatedDiscountCard.Id));
-        
+
         if (cardIndex != -1)
         {
             _discountCards[cardIndex] = updatedDiscountCard;
@@ -52,7 +52,7 @@ public class DiscountCardRepository
     public void Save()
     {
         CsvFileWriter.WriteFile(
-            _filePath, 
+            _filePath,
             _discountCardMapper.MapDiscountCardsToStringList(_discountCards)
         );
     }

@@ -20,7 +20,7 @@ public partial class DiscountCardWindow : Window
     private void OkButton_Click(object sender, RoutedEventArgs e)
     {
         string cardNumber = CardNumberTextBox.Text;
-        
+
         if (string.IsNullOrEmpty(cardNumber))
         {
             DialogResult = false;

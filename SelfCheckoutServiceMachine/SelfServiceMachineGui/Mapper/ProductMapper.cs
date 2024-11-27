@@ -13,7 +13,7 @@ public class ProductMapper : CsvMapper<Product>
             {
                 throw new FormatException("Invalid number of parts in line.");
             }
-            
+
             if (!Enum.TryParse(parts[5], out TypeProduct typeProduct))
             {
                 throw new ArgumentException($"Invalid TypeProduct value: {parts[5]}");
@@ -45,5 +45,4 @@ public class ProductMapper : CsvMapper<Product>
 
         return lines;
     }
-    
 }

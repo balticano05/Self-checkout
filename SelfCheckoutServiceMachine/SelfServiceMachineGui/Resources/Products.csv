@@ -11,11 +11,11 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 10;Packed beef fillet 1kg;12.80;Beef fillet;10.00;Meat;False;7
 11;Packed pork fillet 1kg;8.52;Pork fillet;6.50;Meat;False;13
 12;Packed chicken breasts 1kg;10.75;Chicken breasts;8.00;Meat;False;18
-13;Baguette 360g;1.30;French baguette;1.00;Bakery;True;10
+13;Baguette 360g;1.30;French baguette;1.00;Bakery;True;8
 14;Drinking water 1.51;0.80;Bottled water;0.50;Beverages;False;100
 15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;14
 16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;11
-17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;16
+17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;15
 18;Paulaner 0.51;1.10;German beer;0.80;Alcohol;False;37
 19;Whiskey Jim Beam 1l;13.99;Bourbon whiskey;10.00;Alcohol;False;30
 20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;15
@@ -56,7 +56,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 55;Instant Coffee 200g;5.90;Soluble coffee;4.80;Beverages;True;30
 56;Grape Juice 1L;2.40;Natural juice;1.90;Beverages;True;25
 57;Iced Tea 1.5L;1.60;Peach flavor;1.20;Beverages;True;45
-58;Hot Chocolate 400g;4.50;Cocoa powder;3.80;Beverages;True;20
+58;Hot Chocolate 400g;4.50;Cocoa powder;3.80;Beverages;True;19
 59;Coconut Water 1L;3.20;Natural drink;2.60;Beverages;True;25
 60;Sports Drink 750ml;2.30;Electrolyte drink;1.80;Beverages;True;35
 61;Almond Milk 1L;2.90;Plant-based milk;2.30;Beverages;True;30
@@ -76,5 +76,5 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 75;Shampoo 400ml;4.99;Hair care;3.80;PersonalCare;False;25
 76;Toothpaste 100ml;2.80;Mint fresh;2.00;PersonalCare;False;39
 77;Shower gel 300ml;3.50;Body wash;2.70;PersonalCare;False;33
-78;Deodorant 150ml;3.20;Anti-perspirant;2.50;PersonalCare;False;39
+78;Deodorant 150ml;3.20;Anti-perspirant;2.50;PersonalCare;False;38
 79;Hand cream 75ml;2.90;Moisturizing;2.20;PersonalCare;False;70

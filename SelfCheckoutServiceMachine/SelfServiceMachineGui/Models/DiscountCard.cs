@@ -6,7 +6,9 @@ public class DiscountCard
     public string Number { get; private set; }
     public decimal Discount { get; private set; }
 
-    public DiscountCard() { }
+    public DiscountCard()
+    {
+    }
 
     public class Builder
     {

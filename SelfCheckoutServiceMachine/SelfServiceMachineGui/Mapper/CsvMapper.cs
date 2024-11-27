@@ -1,4 +1,5 @@
 ﻿namespace SelfCheckoutServiceMachine.Mapper;
+
 using System.Collections.Generic;
 
 public class CsvMapper<T>

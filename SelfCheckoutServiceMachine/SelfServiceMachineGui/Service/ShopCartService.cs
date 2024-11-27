@@ -5,7 +5,6 @@ namespace SelfCheckoutServiceMachine.Service;
 
 public class ShopCartService
 {
-
     private readonly ShopCart _shopCart;
 
     public ShopCartService()
@@ -20,11 +19,11 @@ public class ShopCartService
     {
         if (!CanAddProduct(product))
             throw new InvalidOperationException("Not enough items in stock!");
-            
+
         _shopCart.Products.Add(product);
     }
 
-    public decimal ShowPriceInShopCart() => 
+    public decimal ShowPriceInShopCart() =>
         _shopCart.Products.Sum(p => p.Price);
 
     public List<Product> ShowAllProductsInShopCart() =>
@@ -54,8 +53,7 @@ public class ShopCartService
     }
 
     public decimal CalculateFinalPrice(DiscountCard discountCard) =>
-        discountCard == null 
+        discountCard == null
             ? ShowPriceInShopCart()
             : ShowPriceInShopCart() * (1 - discountCard.Discount / 100m);
-
 }

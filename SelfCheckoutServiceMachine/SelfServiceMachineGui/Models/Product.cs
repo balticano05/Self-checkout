@@ -11,7 +11,9 @@ public class Product
     public bool WholesaleProduct { get; private set; }
     public int QuantityInStock { get; set; }
 
-    private Product() { }
+    private Product()
+    {
+    }
 
     public class Builder
     {
