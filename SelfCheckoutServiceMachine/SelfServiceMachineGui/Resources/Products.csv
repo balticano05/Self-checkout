@@ -2,27 +2,27 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 1;Milk;1.07;Fresh milk;0.90;Dairy;True;0
 2;Cream 400g;2.71;Cream for cooking;2.00;Dairy;True;20
 3;Yogurt 400g;2.10;Plain yogurt;1.50;Dairy;False;5
-4;Packed potatoes 1kg;1.47;Fresh potatoes;1.00;Vegetables;False;30
-5;Packed cabbage 1kg;1.19;Fresh cabbage;0.80;Vegetables;False;15
-6;Packed tomatoes 350g;1.60;Fresh tomatoes;1.20;Vegetables;False;50
+4;Packed potatoes 1kg;1.47;Fresh potatoes;1.00;Vegetables;False;28
+5;Packed cabbage 1kg;1.19;Fresh cabbage;0.80;Vegetables;False;11
+6;Packed tomatoes 350g;1.60;Fresh tomatoes;1.20;Vegetables;False;49
 7;Packed apples 1kg;2.78;Fresh apples;2.00;Fruits;False;18
 8;Packed oranges 1kg;3.20;Fresh oranges;2.50;Fruits;False;12
 9;Packed bananas 1kg;1.10;Fresh bananas;0.80;Fruits;False;25
 10;Packed beef fillet 1kg;12.80;Beef fillet;10.00;Meat;False;7
-11;Packed pork fillet 1kg;8.52;Pork fillet;6.50;Meat;False;14
+11;Packed pork fillet 1kg;8.52;Pork fillet;6.50;Meat;False;13
 12;Packed chicken breasts 1kg;10.75;Chicken breasts;8.00;Meat;False;18
 13;Baguette 360g;1.30;French baguette;1.00;Bakery;True;10
 14;Drinking water 1.51;0.80;Bottled water;0.50;Beverages;False;100
-15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;16
-16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;12
-17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;17
+15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;14
+16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;11
+17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;16
 18;Paulaner 0.51;1.10;German beer;0.80;Alcohol;False;37
 19;Whiskey Jim Beam 1l;13.99;Bourbon whiskey;10.00;Alcohol;False;30
-20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;16
+20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;15
 21;Packed potatoes 1kg;1.47;Fresh potatoes;1.00;Vegetables;False;30
 22;Packed cabbage 1kg;1.19;Fresh cabbage;0.80;Vegetables;False;15
 23;Packed tomatoes 350g;1.60;Fresh tomatoes;1.20;Vegetables;False;50
-24;Carrots 1kg;1.30;Fresh carrots;0.90;Vegetables;False;35
+24;Carrots 1kg;1.30;Fresh carrots;0.90;Vegetables;False;34
 25;Onions 1kg;1.20;Fresh onions;0.80;Vegetables;False;45
 26;Bell Peppers 500g;2.40;Colorful peppers;1.80;Vegetables;False;25
 27;Cucumber 500g;1.50;Fresh cucumber;1.10;Vegetables;False;35
@@ -41,13 +41,13 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 40;Green Beans 400g;2.10;Fresh beans;1.60;Vegetables;False;20
 41;Artichoke 300g;3.50;Fresh artichoke;2.80;Vegetables;False;12
 42;Leeks 400g;1.90;Fresh leeks;1.40;Vegetables;False;18
-43;Pumpkin 1kg;2.60;Fresh pumpkin;2.00;Vegetables;False;15
+43;Pumpkin 1kg;2.60;Fresh pumpkin;2.00;Vegetables;False;13
 44;Beetroot 500g;1.70;Fresh beetroot;1.30;Vegetables;False;25
 45;Cola 2L;2.50;Carbonated drink;1.80;Beverages;True;50
 46;Orange Juice 1L;2.20;Fresh juice;1.70;Beverages;True;35
 47;Mineral Water 1.5L;1.00;Still water;0.60;Beverages;True;100
 48;Green Tea 50bags;3.50;Japanese tea;2.80;Beverages;True;30
-49;Coffee Beans 500g;8.90;Arabica beans;7.20;Beverages;True;25
+49;Coffee Beans 500g;8.90;Arabica beans;7.20;Beverages;True;24
 50;Apple Juice 1L;1.90;Natural juice;1.40;Beverages;True;35
 51;Sparkling Water 1L;1.20;Carbonated water;0.80;Beverages;True;60
 52;Black Tea 100bags;4.20;Ceylon tea;3.50;Beverages;True;40
@@ -63,18 +63,18 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 62;Smoothie 330ml;3.10;Mixed fruit;2.50;Beverages;True;20
 63;Kombucha 500ml;3.80;Fermented tea;3.20;Beverages;True;10
 64;Protein Shake 330ml;2.70;Nutritional drink;2.10;Beverages;True;25
-65;Salmon fillet 500g;8.99;Fresh Atlantic salmon;7.20;Seafood;False;15
+65;Salmon fillet 500g;8.99;Fresh Atlantic salmon;7.20;Seafood;False;13
 66;Shrimp 400g;12.50;Frozen tiger prawns;10.00;Seafood;True;20
 67;Tuna steak 300g;7.80;Fresh tuna;6.30;Seafood;False;12
 68;Cod fillet 400g;6.90;Fresh cod fish;5.50;Seafood;False;18
 69;Mussels 500g;5.40;Fresh mussels;4.20;Seafood;True;10
-70;Frozen pizza 400g;3.99;Margherita pizza;3.00;FrozenFoods;True;40
-71;Ice cream 1L;4.50;Vanilla flavor;3.50;FrozenFoods;True;23
-72;Frozen vegetables mix 500g;2.80;Mixed vegetables;2.00;FrozenFoods;True;34
-73;Frozen fish fingers 300g;4.20;Breaded fish;3.30;FrozenFoods;True;28
-74;Frozen berries 400g;3.90;Mixed berries;3.00;FrozenFoods;True;28
+70;Frozen pizza 400g;3.99;Margherita pizza;3.00;FrozenFoods;True;38
+71;Ice cream 1L;4.50;Vanilla flavor;3.50;FrozenFoods;True;19
+72;Frozen vegetables mix 500g;2.80;Mixed vegetables;2.00;FrozenFoods;True;32
+73;Frozen fish fingers 300g;4.20;Breaded fish;3.30;FrozenFoods;True;24
+74;Frozen berries 400g;3.90;Mixed berries;3.00;FrozenFoods;True;26
 75;Shampoo 400ml;4.99;Hair care;3.80;PersonalCare;False;25
-76;Toothpaste 100ml;2.80;Mint fresh;2.00;PersonalCare;False;40
-77;Shower gel 300ml;3.50;Body wash;2.70;PersonalCare;False;35
-78;Deodorant 150ml;3.20;Anti-perspirant;2.50;PersonalCare;False;40
+76;Toothpaste 100ml;2.80;Mint fresh;2.00;PersonalCare;False;39
+77;Shower gel 300ml;3.50;Body wash;2.70;PersonalCare;False;33
+78;Deodorant 150ml;3.20;Anti-perspirant;2.50;PersonalCare;False;39
 79;Hand cream 75ml;2.90;Moisturizing;2.20;PersonalCare;False;70

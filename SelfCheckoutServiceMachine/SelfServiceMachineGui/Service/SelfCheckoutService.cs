@@ -111,14 +111,15 @@ public class SelfCheckoutService
     public void SaveReceiptToPdf(string receiptContent)
     {
         string fileName = $"Receipt_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Receipts");
+        string filePath = Path.Combine(Path.Combine(
+            Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.FullName ?? string.Empty, "Receipts"));
 
         if (!Directory.Exists(filePath))
         {
             Directory.CreateDirectory(filePath);
         }
 
-        filePath = Path.Combine(Directory.GetCurrentDirectory(), "Receipts", fileName);
+        filePath = Path.Combine(filePath, fileName);
     
         _pdfReceiptService.GeneratePdfReceipt(receiptContent, filePath);
     }
