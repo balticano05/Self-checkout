@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SelfServiceMachineGui"
         mc:Ignorable="d"
-        Title="PrintReceiptWinodw" Height="450" Width="800">
+        Title="PrintReceiptWinodw" Height="150" Width="400">
     <StackPanel Margin="10">
         <TextBlock Text="Would you like to print a receipt?" 
                    HorizontalAlignment="Center" 

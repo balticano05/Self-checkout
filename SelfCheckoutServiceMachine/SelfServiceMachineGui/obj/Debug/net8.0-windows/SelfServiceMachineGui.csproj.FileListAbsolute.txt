@@ -27,3 +27,4 @@ D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\ReceiptWindow.baml
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\ErrorWindow.g.cs
 D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\ErrorWindow.baml
+D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\obj\Debug\net8.0-windows\App.baml
