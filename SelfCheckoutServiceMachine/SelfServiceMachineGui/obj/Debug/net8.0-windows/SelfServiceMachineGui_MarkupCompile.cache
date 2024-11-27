@@ -9,12 +9,12 @@ SelfServiceMachineGui
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\App.xaml
-5-1265028353
+D:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\App.xaml
+5-1757955609
 
-25-866193371
-198915248976
-DiscountCardWindow.xaml;ErrorWindow.xaml;MainWindow.xaml;PrintReceiptWindow.xaml;ReceiptWindow.xaml;
+271814651301
+200-1991622128
+Windows\DiscountCardWindow.xaml;Windows\ErrorWindow.xaml;Windows\MainWindow.xaml;Windows\PrintReceiptWindow.xaml;Windows\ReceiptWindow.xaml;
 
 False
 

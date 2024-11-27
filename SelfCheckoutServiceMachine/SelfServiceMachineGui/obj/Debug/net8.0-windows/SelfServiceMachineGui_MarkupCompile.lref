@@ -1,8 +1,8 @@
 ﻿
-FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\App.xaml;;
-FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\DiscountCardWindow.xaml;;
-FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\ErrorWindow.xaml;;
-FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\MainWindow.xaml;;
-FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\PrintReceiptWindow.xaml;;
-FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\ReceiptWindow.xaml;;
+FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\App.xaml;;
+FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\DiscountCardWindow.xaml;;
+FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\ErrorWindow.xaml;;
+FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\MainWindow.xaml;;
+FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\PrintReceiptWindow.xaml;;
+FD:\GRSU\Self-checkout\SelfCheckoutServiceMachine\SelfServiceMachineGui\Windows\ReceiptWindow.xaml;;
 

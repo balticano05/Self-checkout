@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using SelfCheckoutServiceMachine.Models;
 
 namespace SelfCheckoutServiceMachine.Service;
@@ -7,11 +8,13 @@ public class SelfCheckoutService
 {
     private readonly ProductService _productService;
     private readonly ShopCartService _shopCartService;
+    private readonly PdfReceiptService _pdfReceiptService;
 
     public SelfCheckoutService()
     {
         _productService = new ProductService();
         _shopCartService = new ShopCartService();
+        _pdfReceiptService = new PdfReceiptService();
     }
 
     public List<Product> SearchProducts(string name)
@@ -70,7 +73,7 @@ public class SelfCheckoutService
             return false;
 
         _productService.UpdateProductStock(_shopCartService.ShowAllProductsInShopCart());
-        //_shopCartService.ClearShopCart();
+        
         return true;
     }
 
@@ -103,6 +106,21 @@ public class SelfCheckoutService
         receipt.AppendLine("======== Thank You ========");
 
         return receipt.ToString();
+    }
+    
+    public void SaveReceiptToPdf(string receiptContent)
+    {
+        string fileName = $"Receipt_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "Receipts");
+
+        if (!Directory.Exists(filePath))
+        {
+            Directory.CreateDirectory(filePath);
+        }
+
+        filePath = Path.Combine(Directory.GetCurrentDirectory(), "Receipts", fileName);
+    
+        _pdfReceiptService.GeneratePdfReceipt(receiptContent, filePath);
     }
     
 }

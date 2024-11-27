@@ -1,8 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "R7pilI4s/DhshaEXXNRdtm2QyV6wmGvNaxkVCQPApla1YC1MV4weg/0GQyqazQHCJ3c7FzmMPHTLu+PrR3mMWw==",
+  "dgSpecHash": "rMuMlCRMDsCtvJNv026TcQEuuryz6/HaDaVK3Lyjc8DXpC69q84BUmKARVoIvfinOj0UfVngFI/xAO243IHaHA==",
   "success": true,
   "projectFilePath": "D:\\GRSU\\Self-checkout\\SelfCheckoutServiceMachine\\SelfServiceMachineGui\\SelfServiceMachineGui.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\itextsharp\\5.5.13.4\\itextsharp.5.5.13.4.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\system.text.encoding.codepages\\9.0.0\\system.text.encoding.codepages.9.0.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Пакет \"iTextSharp 5.5.13.4\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net8.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
 }

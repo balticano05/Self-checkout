@@ -1,7 +1,7 @@
 Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityInStock
 1;Milk;1.07;Fresh milk;0.90;Dairy;True;0
 2;Cream 400g;2.71;Cream for cooking;2.00;Dairy;True;20
-3;Yogurt 400g;2.10;Plain yogurt;1.50;Dairy;False;7
+3;Yogurt 400g;2.10;Plain yogurt;1.50;Dairy;False;5
 4;Packed potatoes 1kg;1.47;Fresh potatoes;1.00;Vegetables;False;30
 5;Packed cabbage 1kg;1.19;Fresh cabbage;0.80;Vegetables;False;15
 6;Packed tomatoes 350g;1.60;Fresh tomatoes;1.20;Vegetables;False;50
@@ -15,14 +15,14 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 14;Drinking water 1.51;0.80;Bottled water;0.50;Beverages;False;100
 15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;16
 16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;12
-17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;30
+17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;17
 18;Paulaner 0.51;1.10;German beer;0.80;Alcohol;False;37
 19;Whiskey Jim Beam 1l;13.99;Bourbon whiskey;10.00;Alcohol;False;30
-20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;17
+20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;16
 21;Packed potatoes 1kg;1.47;Fresh potatoes;1.00;Vegetables;False;30
 22;Packed cabbage 1kg;1.19;Fresh cabbage;0.80;Vegetables;False;15
 23;Packed tomatoes 350g;1.60;Fresh tomatoes;1.20;Vegetables;False;50
-24;Carrots 1kg;1.30;Fresh carrots;0.90;Vegetables;False;40
+24;Carrots 1kg;1.30;Fresh carrots;0.90;Vegetables;False;35
 25;Onions 1kg;1.20;Fresh onions;0.80;Vegetables;False;45
 26;Bell Peppers 500g;2.40;Colorful peppers;1.80;Vegetables;False;25
 27;Cucumber 500g;1.50;Fresh cucumber;1.10;Vegetables;False;35
@@ -36,7 +36,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 35;Sweet Potato 1kg;2.10;Fresh sweet potato;1.60;Vegetables;False;28
 36;Asparagus 250g;3.40;Fresh asparagus;2.80;Vegetables;False;15
 37;Brussels Sprouts 400g;2.80;Fresh sprouts;2.20;Vegetables;False;18
-38;Celery 400g;1.60;Fresh celery;1.20;Vegetables;False;22
+38;Celery 400g;1.60;Fresh celery;1.20;Vegetables;False;20
 39;Radish 200g;1.30;Fresh radish;0.90;Vegetables;False;25
 40;Green Beans 400g;2.10;Fresh beans;1.60;Vegetables;False;20
 41;Artichoke 300g;3.50;Fresh artichoke;2.80;Vegetables;False;12
@@ -76,5 +76,5 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 75;Shampoo 400ml;4.99;Hair care;3.80;PersonalCare;False;25
 76;Toothpaste 100ml;2.80;Mint fresh;2.00;PersonalCare;False;40
 77;Shower gel 300ml;3.50;Body wash;2.70;PersonalCare;False;35
-78;Deodorant 150ml;3.20;Anti-perspirant;2.50;PersonalCare;False;30
-79;Hand cream 75ml;2.90;Moisturizing;2.20;PersonalCare;False;22
+78;Deodorant 150ml;3.20;Anti-perspirant;2.50;PersonalCare;False;40
+79;Hand cream 75ml;2.90;Moisturizing;2.20;PersonalCare;False;70
