@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rMuMlCRMDsCtvJNv026TcQEuuryz6/HaDaVK3Lyjc8DXpC69q84BUmKARVoIvfinOj0UfVngFI/xAO243IHaHA==",
+  "dgSpecHash": "WlAoLo2ZbAWy8vx4CTReV4+rd+Rl4jwTUMOyvH1TADClB2Gfn/iUf1tBgHY6Pl5+WS8WAfhLE9Fv2uc03HEnQA==",
   "success": true,
-  "projectFilePath": "D:\\GRSU\\Self-checkout\\SelfCheckoutServiceMachine\\SelfServiceMachineGui\\SelfServiceMachineGui.csproj",
+  "projectFilePath": "D:\\GRSU\\CourseProject\\Self-checkout\\SelfCheckoutServiceMachine\\SelfServiceMachineGui\\SelfServiceMachineGui.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\user\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\itextsharp\\5.5.13.4\\itextsharp.5.5.13.4.nupkg.sha512",
