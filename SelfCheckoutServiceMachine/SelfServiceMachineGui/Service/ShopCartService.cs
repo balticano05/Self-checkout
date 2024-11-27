@@ -27,8 +27,8 @@ public class ShopCartService
     public decimal ShowPriceInShopCart() => 
         _shopCart.Products.Sum(p => p.Price);
 
-    public List<Product> ShowAllProductsInShopCart() => 
-        _shopCart.Products.ToList();
+    public List<Product> ShowAllProductsInShopCart() =>
+        _shopCart.Products;
 
     public void ClearShopCart()
     {

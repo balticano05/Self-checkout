@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SelfCheckoutServiceMachine.Models;
@@ -77,7 +76,8 @@ public partial class MainWindow : Window
                 }
                 else
                 {
-                    ResultsListBox.Items.Add($"{product.Price} - {product.Name} - {product.Type} (Available: {remainingStock})");
+                    ResultsListBox.Items.Add(
+                        $"{product.Price} - {product.Name} - {product.Type} (Available: {remainingStock})");
                 }
             }
         }
@@ -102,7 +102,7 @@ public partial class MainWindow : Window
             NameSearchBox.Foreground = Brushes.Black;
         }
     }
-    
+
     private void NameSearchBox_GotFocus(object sender, RoutedEventArgs e)
     {
         if (NameSearchBox.Text == "Enter name's product")
@@ -111,10 +111,10 @@ public partial class MainWindow : Window
             NameSearchBox.Foreground = Brushes.Black;
         }
     }
-    
+
     private void SearchByTypeClick(object sender, RoutedEventArgs e)
     {
-        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem && 
+        if (TypeComboBox.SelectedItem is ComboBoxItem selectedItem &&
             selectedItem.Content.ToString() != "Select a product type")
         {
             string type = selectedItem.Content.ToString();
@@ -139,6 +139,7 @@ public partial class MainWindow : Window
 
     private void AddToCart_Click(object sender, RoutedEventArgs e)
     {
+        string pattern = @"^\d{4}$";
         try
         {
             if (ResultsListBox.SelectedItem is string selectedProductString)
@@ -211,6 +212,7 @@ public partial class MainWindow : Window
             new ErrorWindow($"Error processing purchase: {ex.Message}").ShowDialog();
         }
     }
+
     private void ProcessBalanceAndPurchase(decimal finalPrice, DiscountCard card)
     {
         while (true)
@@ -223,6 +225,7 @@ public partial class MainWindow : Window
                     UpdateCartListBox();
                     UpdateTotalPrice();
                 }
+
                 break;
             }
 
@@ -252,37 +255,8 @@ public partial class MainWindow : Window
             MessageBox.Show($"Final price: {finalPrice:F2}", "Purchase completed");
             return true;
         }
+
         return false;
-    }
-
-
-    private string GenerateReceipt(decimal finalPrice, decimal balance, DiscountCard card)
-    {
-        StringBuilder receipt = new StringBuilder();
-        receipt.AppendLine("=== RECEIPT ===");
-        receipt.AppendLine($"Date: {DateTime.Now}");
-        receipt.AppendLine("Products:");
-        receipt.AppendLine("-------------------");
-        
-        foreach (var product in _selfCheckoutService.GetCartProducts())
-        {
-            receipt.AppendLine($"{product.Name} - ${product.Price:F2}");
-        }
-        
-        receipt.AppendLine("-------------------");
-        receipt.AppendLine($"Total Price: ${_selfCheckoutService.GetCartProducts():F2}");
-        
-        if (card != null)
-        {
-            receipt.AppendLine($"Discount Card Applied: {card.Discount}%");
-            receipt.AppendLine($"Final Price: ${finalPrice:F2}");
-        }
-        
-        receipt.AppendLine($"Paid Amount: ${balance:F2}");
-        receipt.AppendLine($"Change: ${balance - finalPrice:F2}");
-        receipt.AppendLine("=== Thank You ===");
-        
-        return receipt.ToString();
     }
 
     private decimal ShowBalanceInputDialog()
@@ -298,7 +272,7 @@ public partial class MainWindow : Window
         StackPanel panel = new StackPanel { Margin = new Thickness(10) };
         TextBox balanceInput = new TextBox { Margin = new Thickness(0, 5, 0, 5) };
         Button okButton = new Button { Content = "OK", Width = 70 };
-        
+
         decimal balance = 0;
         okButton.Click += (s, e) =>
         {

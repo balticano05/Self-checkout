@@ -15,7 +15,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 14;Drinking water 1.51;0.80;Bottled water;0.50;Beverages;False;100
 15;Olive oil 500ml;5.30;Extra virgin olive oil;4.00;HouseholdItems;False;16
 16;Sunflower oil 1l;1.20;Sunflower oil;0.90;HouseholdItems;False;12
-17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;46
+17;Chocolate Ritter sport 100g;1.10;Milk chocolate;0.80;Snacks;False;30
 18;Paulaner 0.51;1.10;German beer;0.80;Alcohol;False;37
 19;Whiskey Jim Beam 1l;13.99;Bourbon whiskey;10.00;Alcohol;False;30
 20;Whiskey Jack Daniels 1l;17.19;Tennessee whiskey;12.00;Alcohol;False;17
@@ -44,7 +44,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 43;Pumpkin 1kg;2.60;Fresh pumpkin;2.00;Vegetables;False;15
 44;Beetroot 500g;1.70;Fresh beetroot;1.30;Vegetables;False;25
 45;Cola 2L;2.50;Carbonated drink;1.80;Beverages;True;50
-46;Orange Juice 1L;2.20;Fresh juice;1.70;Beverages;True;40
+46;Orange Juice 1L;2.20;Fresh juice;1.70;Beverages;True;35
 47;Mineral Water 1.5L;1.00;Still water;0.60;Beverages;True;100
 48;Green Tea 50bags;3.50;Japanese tea;2.80;Beverages;True;30
 49;Coffee Beans 500g;8.90;Arabica beans;7.20;Beverages;True;25
@@ -61,7 +61,7 @@ Id;Name;Price;Description;WholesalePrice;TypeProduct;WholesaleProduct;QuantityIn
 60;Sports Drink 750ml;2.30;Electrolyte drink;1.80;Beverages;True;35
 61;Almond Milk 1L;2.90;Plant-based milk;2.30;Beverages;True;30
 62;Smoothie 330ml;3.10;Mixed fruit;2.50;Beverages;True;20
-63;Kombucha 500ml;3.80;Fermented tea;3.20;Beverages;True;15
+63;Kombucha 500ml;3.80;Fermented tea;3.20;Beverages;True;10
 64;Protein Shake 330ml;2.70;Nutritional drink;2.10;Beverages;True;25
 65;Salmon fillet 500g;8.99;Fresh Atlantic salmon;7.20;Seafood;False;15
 66;Shrimp 400g;12.50;Frozen tiger prawns;10.00;Seafood;True;20

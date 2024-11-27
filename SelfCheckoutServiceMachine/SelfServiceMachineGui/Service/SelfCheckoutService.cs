@@ -70,16 +70,16 @@ public class SelfCheckoutService
             return false;
 
         _productService.UpdateProductStock(_shopCartService.ShowAllProductsInShopCart());
-        _shopCartService.ClearShopCart();
+        //_shopCartService.ClearShopCart();
         return true;
     }
 
     public string GenerateReceipt(decimal finalPrice, decimal balance, DiscountCard card)
     {
         StringBuilder receipt = new StringBuilder();
-        receipt.AppendLine("=== RECEIPT ===");
+        receipt.AppendLine("======== RECEIPT ========");
         receipt.AppendLine($"Date: {DateTime.Now}");
-        receipt.AppendLine("Products:");
+        receipt.AppendLine("\n\nProducts");
         receipt.AppendLine("-------------------");
 
         foreach (var product in _shopCartService.ShowAllProductsInShopCart())
@@ -88,17 +88,19 @@ public class SelfCheckoutService
         }
 
         receipt.AppendLine("-------------------");
-        receipt.AppendLine($"Total Price: ${_shopCartService.ShowPriceInShopCart():F2}");
-        
+        receipt.AppendLine($"Original Price: ${_shopCartService.ShowPriceInShopCart():F2}");
+
         if (card != null)
         {
-            receipt.AppendLine($"Discount Card Applied: {card.Discount}%");
-            receipt.AppendLine($"Final Price: ${finalPrice:F2}");
+            receipt.AppendLine($"Discount Card: {card.Number}");
+            receipt.AppendLine($"Discount Rate: {card.Discount}%");
+            receipt.AppendLine($"Discount Amount: ${_shopCartService.ShowPriceInShopCart() - finalPrice:F2}");
+            receipt.AppendLine($"Price After Discount: ${finalPrice:F2}");
         }
 
-        receipt.AppendLine($"Paid Amount: ${balance:F2}");
+        receipt.AppendLine('\n'+$"\nPaid Amount: ${balance:F2}");
         receipt.AppendLine($"Change: ${balance - finalPrice:F2}");
-        receipt.AppendLine("=== Thank You ===");
+        receipt.AppendLine("======== Thank You ========");
 
         return receipt.ToString();
     }
