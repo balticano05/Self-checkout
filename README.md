@@ -3,7 +3,7 @@ Develop a desktop self-checkout application using C# and WPF. The app will strea
 
 # Dependencies and tools:
 
-    - net core 8.0
+    - .net core 8.0
     - WPF
     - iTextSharp 5.5.13.4
     - System.Text.Encoding.CodePages 9.0.0
